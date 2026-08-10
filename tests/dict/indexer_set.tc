@@ -1,0 +1,48 @@
+process test_dict_indexer_set() {
+
+    line d = {};
+
+    // equals operator
+
+    d["new_key"] = "new value";
+    require_equal(
+        "Key has value set to string",
+        line d,
+        {new_key: "new value"}
+    );
+
+    // // BUG HERE: TC ERROR
+    // d = {};
+    // d["subdict"] = {};
+    // (d["subdict"] as dict)["nested value"] = 5;
+    // require_equal(
+    //     "Nested key has value set to number",
+    //     d,
+    //     {subdict: {"nested value": 5}}
+    // );
+
+    d = {};
+    d["subdict"] = {yee: "haw"};
+    (d as dict[dict])["subdict"]["yee"] = d["subdict"];
+    require_equal(
+        "Nested key has value set to parent",
+        d,
+        {subdict: {yee: {yee: "haw"}}}
+    );
+
+    // incrementor operators
+
+    line d2 = ({n: 1});
+    d2["n"] += 5; 
+    require_equal("+=",d2,{n: 6});
+    d2["n"] -= 3; 
+    require_equal("-=",d2,{n: 3});
+    d2["n"] *= 4; 
+    require_equal("*=",d2,{n: 12});
+    d2["n"] /= 3;
+    require_equal("/=",d2,{n: 4});
+    d2["n"] %= 3;
+    require_equal("%=",d2,{n: 1});
+
+    pass_test();
+}

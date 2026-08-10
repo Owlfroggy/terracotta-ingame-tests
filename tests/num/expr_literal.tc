@@ -1,0 +1,11 @@
+process test_num_expr_literal() {
+    require_equal("% math(1+1)",n'%math(1+1)',2);
+    
+    line dingus = 5;
+    require_equal("% var(dingus)",n'%var(dingus)',5);
+    
+    line "ding\\us" = 6;
+    require_equal("% var(ding\\us)",n'%var(ding\\us)',6);
+    
+    pass_test();
+}

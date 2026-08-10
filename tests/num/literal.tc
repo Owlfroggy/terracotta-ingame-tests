@@ -1,0 +1,44 @@
+process test_num_literal() {
+    require_equal("1",1,n"1");
+    require_equal("1.001",1.001,n"1.001");
+    require_equal("3.14159",3.14159,n"3.14159");
+    require_equal("-1",-1,n"-1");
+    require_equal(".5",.5,n".5");
+    require_equal("-.5",-.5,n"-.5");
+    require_equal("1_000_000",1_000_000,n"1000000");
+    require_equal("1_000_000.1_0_1",1_000_000.1_0_1,n"1000000.101");
+    require_equal("-1_000_000",-1_000_000,n"-1000000");
+    require_equal("-1_000_000.1_0_1",-1_000_000.1_0_1,n"-1000000.101");
+
+    require_equal("0xFF",0xFF,255);
+    require_equal("-0xFF",-0xFF,-255);
+    require_equal("0x1234aBc",0x1234aBc,19090108);
+    require_equal("0x0",0x0,0);
+    
+    require_equal("0xabcdef", 0xabcdef, 11259375);
+    require_equal("0xABCDEF", 0xABCDEF, 11259375);
+    require_equal("0x0001", 0x0001, 1);
+    require_equal("-0x000FF", -0x000FF, -255);
+    require_equal("0x7FFFFFFF", 0x7FFFFFFF, 2147483647);
+    require_equal("0xFFFFFFFF", 0xFFFFFFFF, 4294967295);
+    
+    
+    require_equal("0b0",0,0);
+    require_equal("0b1",1,1);
+    require_equal("0b10011101",0b10011101,157);
+    require_equal("-0b10011101",-0b10011101,-157);
+    
+    require_equal("0b00001010", 0b00001010, 10);
+    require_equal("0b1111111111111111", 0b1111111111111111, 65535);
+    require_equal("0b1010101010101010", 0b1010101010101010, 43690);
+    require_equal("-0b001", -0b001, -1);
+    
+    require_equal("0XFF", 0XFF, 255);
+    require_equal("0B111", 0B111, 7);
+    require_equal("0xF_F", 0xF_F, 255);
+    require_equal("0b1_11", 0b1_11, 7);
+    require_equal("0xFF - 0b1110",0xFF - 0b1110,0b11110001);
+    require_equal("-1 * (0xFF - 0b1110)",-1 * (0xFF - 0b1110),-0b11110001);
+    
+    pass_test();
+}

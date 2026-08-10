@@ -1,0 +1,81 @@
+process test_dict_indexer_get() {
+    // 1-deep dicts
+    line a = -5;
+    line one_deep = {
+        "awesome key": "awesome value",
+        number: 67, // :(
+        "inlined expression": vec(1,2,3) * (7 + line a) - vec(2,0,0),
+    };
+    
+    require_equal("One-deep string value matches", one_deep["awesome key"], "awesome value");
+    require_equal("One-deep number value matches", one_deep["number"], 67);
+    require_equal("One-deep inlined expression matches", one_deep["inlined expression"], vec(0,4,6));
+    
+    
+    // nested values;
+    line two_deep = ({
+        "nested dict": {
+            "nested key": "yay",
+            "one deep": one_deep,
+        },
+        nested_list: [
+            5,
+        ]
+    });
+    
+    // testing without explicit line-scoped vars
+    require_equal(
+        "Value in nested dict matches",
+        two_deep["nested dict"]["nested key"],
+        "yay"
+    );
+    
+    require_equal(
+        "Value in nested list matches",
+        two_deep["nested_list"][1],
+        5
+    );
+    
+    require_equal(
+        "1-deep is properly nested",
+        two_deep["nested dict"]["one deep"],
+        one_deep
+    );
+    
+    // testing with explicit line-scoped vars
+    // BUG HERE!
+    // require_equal(
+    //     "[EXPLICIT SCOPE] Value in nested dict matches",
+    //     line two_deep["nested dict"]["nested key"],
+    //     "yay"
+    // );
+    
+    // require_equal(
+    //     "[EXPLICIT SCOPE] Value in nested list matches",
+    //     line two_deep["nested_list"][1],
+    //     5
+    // );
+    
+    // require_equal(
+    //     "[EXPLICIT SCOPE] 1-deep is properly nested",
+    //     line two_deep["nested dict"]["one deep"],
+    //     line one_deep
+    // );
+
+    // types
+    line key: str;
+
+    line generic: dict[num];
+    line a: num = generic["test"];
+    line b: num = generic[key];
+    
+    line specific_homogenous: {key: num};
+    line c: num = specific_homogenous["key"];
+    line d: num = specific_homogenous[key];
+    
+    line specific_different_types: {key: num, other: str};
+    line e: str = specific_different_types["other"];
+    line f: num = specific_different_types["key"];
+    
+    pass_test();
+}

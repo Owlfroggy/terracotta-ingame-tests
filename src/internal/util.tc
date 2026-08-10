@@ -1,0 +1,5 @@
+/** Sets `v` to `1`, then returns `r` */
+function util_runchecker(v: var, r: num): num {
+    v = 1;
+    return r;
+}

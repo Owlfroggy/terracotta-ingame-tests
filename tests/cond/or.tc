@@ -1,0 +1,43 @@
+process test_cond_or() {
+    require_equal("true || true == true", 1 || 1, 1);
+    require_equal("true || false == true", 1 || 0, 1);
+    require_equal("false || true == true", 0 || 1, 1);
+    require_equal("false || false == false", 0 || 0, 0);
+
+    // short circuit testing
+    line first_ran: num; line second_ran: num;
+    
+    // true || true
+    first_ran = 0; second_ran = 0;
+    line a = util_runchecker(first_ran,1) || util_runchecker(second_ran,1);
+    require_equal("true || true runs a", first_ran, 1);
+    require_equal("true || true skips b", second_ran, 0);
+    
+    // true || false
+    first_ran = 0; second_ran = 0;
+    line a = util_runchecker(first_ran,1) || util_runchecker(second_ran,0);
+    require_equal("true || false runs a", first_ran, 1);
+    require_equal("true || false skips b", second_ran, 0);
+    
+    // false || true
+    first_ran = 0; second_ran = 0;
+    line a = util_runchecker(first_ran,0) || util_runchecker(second_ran,1);
+    require_equal("false || true runs a", first_ran, 1);
+    require_equal("false || true runs b", second_ran, 1);
+    
+    // false || false
+    first_ran = 0; second_ran = 0;
+    line a = util_runchecker(first_ran,0) || util_runchecker(second_ran,0);
+    require_equal("false || false runs a", first_ran, 1);
+    require_equal("false || false runs b", second_ran, 1);
+
+    line dingus = 0;
+    if (0 || 0 || 0) {
+        
+    } else {
+        dingus = 1;
+    }
+    require_equal("Else works properly with || compilation", dingus, 1);
+
+    pass_test();
+}

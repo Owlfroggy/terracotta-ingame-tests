@@ -1,0 +1,12 @@
+process test_str_literal {
+    require_equal("Kablingus", "Kablingus", str.fromBytes(75,97,98,108,105,110,103,117,115));
+    
+    // BUG HERE: \u{1F480} doesn't actually work
+    // BUG HERE: \x doesn't highlight properly
+    require_equal("Escape codes", "\' \" \n \\ \xFF \u2620", str.fromBytes(39,32,34,32,10,32,92,32,-61,-65,32,-30,-104,-96));
+
+    require_equal("Single quote in double quotes","'".toBytes(),[39]);
+    require_equal("Double quote in single quotes",'"'.toBytes(),[34]);
+
+    pass_test();
+}

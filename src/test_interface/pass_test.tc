@@ -1,0 +1,4 @@
+function pass_test() {
+    exit_code = "passed";
+    endthread;
+}

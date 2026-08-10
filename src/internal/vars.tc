@@ -1,0 +1,5 @@
+declare local test_name: str;
+declare local statement_num: num;
+/** "passed" | "failed" */
+declare local exit_code: str;
+declare local last_statement_name: str;

@@ -1,0 +1,3 @@
+// FUNCTION testInfo;
+// DESC "id: str\n";
+// PARAM info: dict;

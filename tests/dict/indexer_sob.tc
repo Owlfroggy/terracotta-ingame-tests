@@ -1,0 +1,60 @@
+// i am sorry
+process test_dict_indexer_sob() {
+    line dingus = ({
+        "and f": {
+            alls: vec(0,10,0)
+        },
+        "dongus": {
+            "asdf": [
+                "one",
+                "two",
+                "thre",
+                "for",
+                [1,2,3],
+                {
+                    "1": [
+                        [
+                            {
+                                "dingu 1": vec(1,1,1),
+                                "dingu 2": vec(1,1,1),
+                                "dingu 3": vec(1,1,1),
+                                "dingu 4": vec(1,1,1),
+                            }
+                        ]
+                    ]
+                }
+            ]
+        },
+        list: ["bongus"],
+        "INCEPTION!!!!!!!": [[[[[[[[[["vaul;t"]]]]]]]]]], //10 layers
+        number: 1,
+    });
+
+    require_equal(
+        "read dingu 4",
+        dingus["dongus"]["asdf"][6]["1"][1][1]["dingu 4"],
+        vec(1,1,1)
+    );
+
+    dingus["dongus"]["asdf"][6]["1"][1][1]["dingu 4"] += vec(5,0,0);
+    require_equal(
+        "increment dingu 4",
+        dingus["dongus"]["asdf"][6]["1"][1][1]["dingu 4"],
+        vec(6,1,1)
+    );
+
+    require_equal(
+        "read vault",
+        dingus["INCEPTION!!!!!!!"][1][1][1][1][1][1][1][1][1][1],
+        "vaul;t"
+    );
+
+    dingus["INCEPTION!!!!!!!"][1][1][1][1][1][1][1][1][1][1] = "new value";
+    require_equal(
+        "write to vault",
+        dingus["INCEPTION!!!!!!!"][1][1][1][1][1][1][1][1][1][1],
+        "new value"
+    );
+
+    pass_test();
+}

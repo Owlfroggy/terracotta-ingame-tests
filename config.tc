@@ -1,0 +1,24 @@
+function CONFIG() {
+    declare global test_list: list[str] = [
+        "num_literal",
+        "num_expr_literal",
+
+        "str_literal",
+
+        "item_constructor",
+
+        "dict_initialization",
+        "dict_indexer_get",
+        "dict_indexer_set",
+        "dict_indexer_sob",
+
+        "expr_num_plus_num",
+        "expr_num_times_num",
+        "expr_bitwise",
+
+        "cond_if_else",
+        "cond_and",
+        "cond_or",
+        "cond_not"
+    ];
+}

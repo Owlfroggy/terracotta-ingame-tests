@@ -1,0 +1,51 @@
+process test_dict_initialization() {
+    // empty dicts
+    
+    line empty_dict = {};
+    require_equal("Empty passes var?IsEmpty",var.isEmpty(empty_dict),1);
+    
+    
+    require_equal("Empty size == 0", empty_dict.len(), 0);
+    
+    // 1-deep dicts
+    line a = -5;
+    line one_deep = {
+        "awesome key": "awesome value",
+        "number": 67,
+        "inlined expression": vec(1,2,3) * (7 + a) - vec(2,0,0),
+    };
+    
+    require_equal("One-deep string value matches", dict.get(one_deep,"awesome key"), "awesome value");
+    require_equal("One-deep number value matches", dict.get(one_deep,"number"), 67);
+    require_equal("One-deep inlined expression matches", dict.get(one_deep,"inlined expression"), vec(0,4,6));
+    
+    
+    // nested dicts;
+    line two_deep = {
+        "nested dict": {
+            "nested key": "yay",
+            "one deep": one_deep,
+        },
+        "nested list": [
+            5,
+        ]
+    };
+    
+    require_equal(
+        "Value in nested dict matches",
+        dict.get(dict.get(two_deep,"nested dict") as dict,"nested key"),
+        "yay"
+    );
+    require_equal(
+        "Value in nested list matches",
+        list.get(dict.get(two_deep,"nested list") as list,1),
+        5
+    );
+    require_equal(
+        "1-deep is properly nested",
+        dict.get(dict.get(two_deep,"nested dict") as dict,"one deep"),
+        one_deep
+    );
+    
+    pass_test();
+}

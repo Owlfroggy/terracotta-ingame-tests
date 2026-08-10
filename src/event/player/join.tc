@@ -1,0 +1,4 @@
+playerevent join {
+    setup();
+    run_tests();
+}

@@ -1,0 +1,13 @@
+process test_item_constructor() {
+    line i = item("egg",10);
+    line material = i.getMaterial(returnValue="Item ID (golden_apple)");
+    line count = i.getStackSize();
+    
+    require_equal("Material should match value passed into constructor", material,"egg");
+    require_equal("Count should match value passed into constructor", count,10);
+    
+    line optional_count = item("egg").getStackSize();
+    require_equal("Count should be 1 when omitted", line optional_count, 1);
+    
+    call pass_test;
+}

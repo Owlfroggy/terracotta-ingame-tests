@@ -1,0 +1,49 @@
+process test_cond_not() {
+    // atomic nots
+    require_equal("!true == false", !1, 0);
+    require_equal("!false == true", !0, 1);
+    require_equal("!!true == true", !!1, 1);
+    require_equal("!!false == false", !!0, 0);
+
+    // distributed nots
+    for (line a of [0, 1]) {
+        for (line b of [0, 1]) {
+            require_equal(
+                "!(%var(a) && %var(b)) == !%var(a) || !%var(b)", 
+                !(a && b), !a || !b
+            );
+            require_equal(
+                "!(%var(a) || %var(b)) == !%var(a) || !%var(b)", 
+                !(a || b), !a && !b
+            );
+            
+
+            require_equal(
+                "!(%var(a) > %var(b)) == %var(a) <= %var(b)", 
+                !(a > b), a <= b
+            );
+            require_equal(
+                "!(%var(a) >= %var(b)) == %var(a) < %var(b)", 
+                !(a >= b), a < b
+            );
+            require_equal(
+                "!(%var(a) < %var(b)) == %var(a) >= %var(b)", 
+                !(a < b), a >= b
+            );
+            require_equal(
+                "!(%var(a) <= %var(b)) == %var(a) > %var(b)", 
+                !(a <= b), a > b
+            );
+            require_equal(
+                "!(%var(a) == %var(b)) == %var(a) != %var(b)", 
+                !(a == b), a != b
+            );
+            require_equal(
+                "!(%var(a) != %var(b)) == %var(a) == %var(b)", 
+                !(a != b), a == b
+            );
+        }
+    }
+
+    pass_test();
+}

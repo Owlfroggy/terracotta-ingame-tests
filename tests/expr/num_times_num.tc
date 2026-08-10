@@ -1,0 +1,31 @@
+process test_expr_num_times_num() {
+    require_equal("Between constants",2 * 3,6);
+
+    line a = 2;
+    line b = 3;
+    require_equal("Line var * line var",line a*line b,6);
+
+    line a = 2;
+    line b = 3;
+    local b = 4;
+    require_equal("Line var * local var (with conflicting line)",line a * local b,8);
+
+    local a = 4;
+    local b = 5;
+    require_equal("Local var * local var", local a * local b, 20);
+
+    line a = 2;
+    line b = 3;
+    line c = 4;
+    require_equal("Three line vars",line a * line b * line c, 24);
+
+    line a = 5;
+    line b = 4;
+    line c = line a * line b;
+    require_equal("Whatever this is",line c * 1, 20);
+
+    line sum = num.add([1,2,3,4,5,6]);
+    require_equal("num.add() with list properly sums", sum, 21);
+
+    pass_test();
+}

@@ -1,0 +1,65 @@
+function run_tests() {
+    line total_tests = 0;
+    line tests_failed: list[str] = [];
+
+    print("",style="Custom");
+
+    //=- test execution -=\\
+    for (local test_name of test_list) {
+        line passed: num;
+        start test_dispatcher(passed, localVariables="Copy");
+
+        total_tests += 1;
+        if (!passed) {
+            tests_failed.append(test_name);
+        }
+    }
+
+    //=- final result message -=\\
+    if (var.isEmpty(tests_failed)) {
+        print(s"<green>✔</green> All %var(total_tests) tests passed :D",style="Custom");
+    } else {
+        print("",style="Custom");
+        line total_failed = tests_failed.len();
+        line total_passed = total_tests - total_failed;
+        
+        // generate the hover text containing all failed texts
+        line tests_msg = "";
+        for (line test of tests_failed) {
+            if (tests_msg != "") {
+                tests_msg += "\n";
+            }
+            tests_msg += "<grey>• </grey>%var(test)";
+        }
+        line tests_msg: txt = txt.parseExpression(tests_msg);
+
+        // failure message
+        print(s"<hover:show_text:'%var(tests_msg)'><red>❌</red> Only %var(total_passed)/%var(total_tests) tests passed <grey>(%var(total_failed) failed, hover for list)",style="Custom");
+    }
+    print("",style="Custom");
+}
+
+process test_dispatcher(passed: var[num]) {
+    passed = 0;
+
+    start "test_%var(test_name)"(localVariables="Share");
+    
+    if (exit_code == "passed") {
+        // print(s"<green>Test <white>%var(test_name)<green> passed!");
+        passed = 1;
+    } else if (exit_code == "failed") {
+        // taken care of by the statement call
+    } else {
+        if (statement_num == 0) {
+            print(
+                "Test %var(test_name) did not finish execution. Not a single statement ran, was this test configured incorrectly?",
+                style="Error"
+            );
+        } else {
+            print(
+                "Test %var(test_name) did not finish execution. The last statement run was %var(statement_num) (%var(last_statement_name))",
+                style="Error"
+            );
+        }
+    }
+}

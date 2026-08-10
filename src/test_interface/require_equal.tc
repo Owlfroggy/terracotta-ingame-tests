@@ -1,0 +1,8 @@
+function require_equal(statement_name: str, v1: any, v2: any) {
+    statement_num += 1;
+    last_statement_name = statement_name;
+    
+    if (v1 != v2) {
+        fail_statement(statement_name,"<white>%var(v1)","<gray> is not equal to <white>\n",line v2);
+    }
+}

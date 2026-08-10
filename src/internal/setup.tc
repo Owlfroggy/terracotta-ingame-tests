@@ -1,0 +1,7 @@
+global setup_complete: num;
+
+function setup() {
+    if (setup_complete) { return; }
+    CONFIG();
+    setup_complete = 1;
+}

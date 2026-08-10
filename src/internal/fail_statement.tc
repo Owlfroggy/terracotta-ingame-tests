@@ -1,0 +1,11 @@
+function fail_statement(statement_name: str, ...message: any) {
+    exit_code = "failed";
+
+    line formatted_msg = txt.parseExpression("   " + message.join("").split("\n").join("\n    "));
+
+    print(
+        s"<red>Test <white>%var(test_name)</white> failed at statement %var(statement_num)\n  <gold>%var(statement_name):</gold>\n",
+        formatted_msg
+    );
+    endthread;   
+}
