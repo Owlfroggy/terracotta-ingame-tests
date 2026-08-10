@@ -1,0 +1,29 @@
+process test_list_indexer_get() {
+    // 1-deep lists
+    line values: list[num] = [10, 20, 30];
+
+    require_equal("First value matches", values[1], 10);
+    require_equal("Last value matches", values[3], 30);
+    require_equal("Expression index matches", values[1 + 1], 20);
+
+    // nested values
+    line nested: list[list[num]] = [[1, 2], [3, 4]];
+
+    require_equal(
+        "First nested value matches",
+        nested[1][1],
+        1
+    );
+    require_equal(
+        "Last nested value matches",
+        nested[2][2],
+        4
+    );
+    require_equal(
+        "Nested list matches",
+        nested[2],
+        [3, 4]
+    );
+
+    pass_test();
+}

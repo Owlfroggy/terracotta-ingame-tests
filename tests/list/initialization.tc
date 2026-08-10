@@ -1,0 +1,14 @@
+process test_list_initialization() {
+    line empty: list[num] = [];
+    require_equal("Empty passes var?IsEmpty", var.isEmpty(empty), 1);
+    require_equal("Empty size == 0", empty.len(), 0);
+
+    line values: list[num] = [1, 2, 3 + 4,]; // trailing comma test
+    require_equal("List literal contents", values, list.create(1, 2, 7));
+    require_equal("List literal length", values.len(), 3);
+
+    line nested: list[list[num]] = [[1, 2], [3, 4]];
+    require_equal("Nested list contents", nested, list.create(list.create(1, 2), list.create(3, 4)));
+
+    pass_test();
+}

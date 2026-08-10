@@ -1,0 +1,35 @@
+process test_list_indexer_set() {
+    // equals operator
+    line values: list[num] = [10, 20, 30];
+
+    values[2] = 25;
+    require_equal(
+        "Indexed value has been set",
+        values,
+        [10, 25, 30]
+    );
+
+    // nested values
+    line nested: list[[num,num]] = [[1, 2], [3, 4]];
+    nested[1][2] = 9;
+    require_equal(
+        "Nested indexed value has been set",
+        nested,
+        [[1, 9], [3, 4]]
+    );
+
+    // incrementor operators
+    line incrementors: list[num] = [1];
+    incrementors[1] += 5;
+    require_equal("+=", incrementors, [6]);
+    incrementors[1] -= 3;
+    require_equal("-=", incrementors, [3]);
+    incrementors[1] *= 4;
+    require_equal("*=", incrementors, [12]);
+    incrementors[1] /= 3;
+    require_equal("/=", incrementors, [4]);
+    incrementors[1] %= 3;
+    require_equal("%=", incrementors, [1]);
+
+    pass_test();
+}

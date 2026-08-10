@@ -7,6 +7,10 @@ function CONFIG() {
 
         "item_constructor",
 
+        "list_initialization",
+        "list_indexer_get",
+        "list_indexer_set",
+
         "dict_initialization",
         "dict_indexer_get",
         "dict_indexer_set",
