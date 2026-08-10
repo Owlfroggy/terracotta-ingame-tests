@@ -1,0 +1,35 @@
+process test_expr_num_minus_num() {
+    require_equal("Between constants", 5 - 3, 2);
+
+    line a = 5;
+    line b = 3;
+    require_equal("Line var - line var", line a - line b, 2);
+
+    line a = 5;
+    line b = 0;
+    local b = 3;
+    require_equal("Line var - local var (with conflicting line)", line a - local b, 2);
+
+    local a = 5;
+    local b = 3;
+    require_equal("Local var - local var", local a - local b, 2);
+
+    line a = 10;
+    line b = 3;
+    line c = 2;
+    require_equal("Three line vars", line a - line b - line c, 5);
+
+    line a = 5;
+    line b = 3;
+    line c = line a - line b;
+    require_equal("Result used in expression", line c - 1, 1);
+
+    line sum = num.subtract([10,2,6]);
+    require_equal("num.subtract() with list", sum, 2);
+    
+    sum = 0;
+    line sum = num.subtract(10,2,6);
+    require_equal("num.subtract() with inlined plural", sum, 2);
+
+    pass_test();
+}

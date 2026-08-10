@@ -1,0 +1,28 @@
+process test_expr_num_modulo_num() {
+    require_equal("Between constants", -17 %% 5, 3);
+
+    line a = -17;
+    line b = 5;
+    require_equal("Line var %% line var", line a %% line b, 3);
+
+    line a = -17;
+    line b = 1;
+    local b = 5;
+    require_equal("Line var %% local var (with conflicting line)", line a %% local b, 3);
+
+    local a = -17;
+    local b = 5;
+    require_equal("Local var %% local var", local a %% local b, 3);
+
+    line a = -37;
+    line b = 9;
+    line c = 5;
+    require_equal("Three line vars", line a %% line b %% line c, 3);
+
+    line a = -17;
+    line b = 5;
+    line c = line a %% line b;
+    require_equal("Result used in expression", line c %% 2, 1);
+
+    pass_test();
+}

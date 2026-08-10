@@ -14,6 +14,11 @@ function CONFIG() {
 
         "expr_num_plus_num",
         "expr_num_times_num",
+        "expr_num_minus_num",
+        "expr_num_div_num",
+        "expr_num_pow_num",
+        "expr_num_remainder_num",
+        "expr_num_modulo_num",
         "expr_bitwise",
 
         "cond_if_else",

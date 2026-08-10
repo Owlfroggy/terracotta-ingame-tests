@@ -24,8 +24,12 @@ process test_expr_num_times_num() {
     line c = line a * line b;
     require_equal("Whatever this is",line c * 1, 20);
 
-    line sum = num.add([1,2,3,4,5,6]);
-    require_equal("num.add() with list properly sums", sum, 21);
+    line sum = num.multiply([1,2,3,4,5,6]);
+    require_equal("num.multiply() with list", sum, 720);
+    
+    sum = 0;
+    line sum = num.multiply(1,2,3,4,5,6);
+    require_equal("num.multiply() with list", sum, 720);
 
     pass_test();
 }

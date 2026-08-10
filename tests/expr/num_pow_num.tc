@@ -1,0 +1,28 @@
+process test_expr_num_pow_num() {
+    require_equal("Between constants", 2 ** 3, 8);
+
+    line a = 2;
+    line b = 3;
+    require_equal("Line var ** line var", line a ** line b, 8);
+
+    line a = 2;
+    line b = 1;
+    local b = 3;
+    require_equal("Line var ** local var (with conflicting line)", line a ** local b, 8);
+
+    local a = 2;
+    local b = 3;
+    require_equal("Local var ** local var", local a ** local b, 8);
+
+    line a = 2;
+    line b = 3;
+    line c = 2;
+    require_equal("Three line vars", line a ** line b ** line c, 64);
+
+    line a = 2;
+    line b = 3;
+    line c = line a ** line b;
+    require_equal("Result used in expression", line c ** 2, 64);
+
+    pass_test();
+}
