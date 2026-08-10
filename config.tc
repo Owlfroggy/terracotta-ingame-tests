@@ -24,6 +24,10 @@ function CONFIG() {
         "expr_num_remainder_num",
         "expr_num_modulo_num",
         "expr_bitwise",
+        "expr_vec_plus_vec",
+        "expr_vec_minus_vec",
+        "expr_vec_times_vec",
+        "expr_vec_div_vec",
 
         "cond_if_else",
         "cond_and",

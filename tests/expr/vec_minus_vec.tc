@@ -1,0 +1,29 @@
+process test_expr_vec_minus_vec() {
+    require_equal("Between constants", vec(5, 7, 9) - vec(1, 2, 3), vec(4, 5, 6));
+
+    line a = vec(5, 7, 9);
+    line b = vec(1, 2, 3);
+    require_equal("Line var - line var", line a - line b, vec(4, 5, 6));
+
+    line a = vec(5, 7, 9);
+    line b = vec(0, 0, 0);
+    local b = vec(1, 2, 3);
+    require_equal("Line var - local var (with conflicting line)", line a - local b, vec(4, 5, 6));
+
+    local a = vec(5, 7, 9);
+    local b = vec(1, 2, 3);
+    require_equal("Local var - local var", local a - local b, vec(4, 5, 6));
+
+    line a = vec(5, 7, 9);
+    line b = vec(1, 2, 3);
+    line c = line a - line b;
+    require_equal("Result used in expression", line c - vec(1, 1, 1), vec(3, 4, 5));
+
+    require_equal(
+        "Full precision is preserved",
+        vec(2)/3 - vec(1)/3,
+        vec(0.3333333333)
+    );
+
+    pass_test();
+}

@@ -1,0 +1,35 @@
+process test_expr_vec_times_vec() {
+    require_equal("Between vectors", vec(2, 3, 4) * vec(5, 6, 7), vec(10, 18, 28));
+    require_equal("Vector times number", vec(2, 3, 4) * 2, vec(4, 6, 8));
+    require_equal("Number times vector", 2 * vec(2, 3, 4), vec(4, 6, 8));
+
+    line a = vec(2, 3, 4);
+    line b = vec(5, 6, 7);
+    require_equal("Line var * line var", line a * line b, vec(10, 18, 28));
+
+    line a = vec(2, 3, 4);
+    line b = vec(0, 0, 0);
+    local b = vec(5, 6, 7);
+    require_equal("Line var * local var (with conflicting line)", line a * local b, vec(10, 18, 28));
+
+    line a = vec(2, 3, 4);
+    line b = vec(5, 6, 7);
+    line c = line a * line b;
+    require_equal("Result used in expression", line c * 2, vec(20, 36, 56));
+
+    line precise = vec(1)/vec(3);
+    require_equal(
+        "Vector multiplication by a vector preserves full precision",
+        precise * vec(2),
+        vec(0.6666666667)
+    );
+
+    line precise = vec(1)/3;
+    require_equal(
+        "Vector multiplication by a number preserves full precision",
+        precise * 2,
+        vec(0.6666666667)
+    );
+
+    pass_test();
+}
