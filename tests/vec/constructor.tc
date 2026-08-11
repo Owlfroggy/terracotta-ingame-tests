@@ -1,0 +1,19 @@
+process test_vec_constructor() {
+    line xyz = vec(1+1,3,3.1415);
+    line value = vec(1.0005);
+
+    require_equal("XYZ constructor X works", vec.getComponent(xyz, comp="X"), 2);
+    require_equal("Value constructor X works", vec.getComponent(value, comp="X"), 1);
+    
+    require_equal("XYZ constructor Y works", vec.getComponent(xyz, comp="Y"), 3);
+    require_equal("Value constructor Y works", vec.getComponent(value, comp="Y"), 1);
+    
+    require_equal("XYZ constructor Z works", vec.getComponent(xyz, comp="Z"), 3.141);
+    require_equal("Value constructor Z works", vec.getComponent(value, comp="Z"), 1);
+    
+    
+    require_equal("XYZ full precision is preserved", vec.getComponent(num.multiply(xyz, vec(1000)) as vec, comp="Z"), 3141.5);
+    require_equal("Value full precision is preserved", vec.getComponent(num.multiply(value, vec(1000)) as vec, comp="Z"), 1000.5);
+
+    pass_test();
+}

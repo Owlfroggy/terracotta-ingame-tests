@@ -1,0 +1,29 @@
+process test_vec_component_access {
+    line v = vec(2,3,4);
+    require_equal("X getter works", v.x, 2);
+    require_equal("Y getter works", v.y, 3);
+    require_equal("Z getter works", v.z, 4);
+
+    v.x = 10;
+    require_equal("X setter works", v.x, 10);
+    v.y = 20;
+    require_equal("Y setter works", v.y, 20);
+    v.z = 30;
+    require_equal("Z setter works", v.z, 30);
+
+
+    line vault = ({nested: [vec(2, 3, 4)]});
+    require_equal("X nested getter works", vault["nested"][1].x, 2);
+    require_equal("Y nested getter works", vault["nested"][1].y, 3);
+    require_equal("Z nested getter works", vault["nested"][1].z, 4);
+
+    vault["nested"][1].x = 10;
+    require_equal("X nested setter works", vault["nested"][1].x, 10);
+    vault["nested"][1].y = 20;
+    require_equal("Y nested setter works", vault["nested"][1].y, 20);
+    vault["nested"][1].z = 30;
+    require_equal("Z nested setter works", vault["nested"][1].z, 30);
+
+
+    pass_test();
+}

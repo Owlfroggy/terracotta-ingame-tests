@@ -6,6 +6,7 @@ function CONFIG() {
         "str_literal",
 
         "vec_constructor",
+        "vec_component_access",
 
         "item_constructor",
 
