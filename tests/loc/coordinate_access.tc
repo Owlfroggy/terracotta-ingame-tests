@@ -1,0 +1,40 @@
+process test_loc_coordinate_access {
+    line v = loc(2,3,4, 90, 45);
+    require_equal("X getter works", v.x, 2);
+    require_equal("Y getter works", v.y, 3);
+    require_equal("Z getter works", v.z, 4);
+    require_equal("Pitch getter works", v.pitch, 90);
+    require_equal("Yaw getter works", v.yaw, 45);
+
+    v.x = 10;
+    require_equal("X setter works", v.x, 10);
+    v.y = 20;
+    require_equal("Y setter works", v.y, 20);
+    v.z = 30;
+    require_equal("Z setter works", v.z, 30);
+    v.pitch = 40;
+    require_equal("Pitch setter works", v.pitch, 40);
+    v.yaw = 50;
+    require_equal("Yaw setter works", v.yaw, 50);
+
+    line vault = ({nested: [loc(2,3,4, 90, 45)]});
+    require_equal("X getter works", vault["nested"][1].x, 2);
+    require_equal("Y getter works", vault["nested"][1].y, 3);
+    require_equal("Z getter works", vault["nested"][1].z, 4);
+    require_equal("Pitch getter works", vault["nested"][1].pitch, 90);
+    require_equal("Yaw getter works", vault["nested"][1].yaw, 45);
+
+    vault["nested"][1].x = 10;
+    require_equal("X setter works", vault["nested"][1].x, 10);
+    vault["nested"][1].y = 20;
+    require_equal("Y setter works", vault["nested"][1].y, 20);
+    vault["nested"][1].z = 30;
+    require_equal("Z setter works", vault["nested"][1].z, 30);
+    vault["nested"][1].pitch = 40;
+    require_equal("Pitch setter works", vault["nested"][1].pitch, 40);
+    vault["nested"][1].yaw = 50;
+    require_equal("Yaw setter works", vault["nested"][1].yaw, 50);
+
+
+    pass_test();
+}

@@ -43,7 +43,7 @@ process test_dispatcher(passed: var[num]) {
     passed = 0;
 
     start "test_%var(test_name)"(localVariables="Share");
-    
+
     if (exit_code == "passed") {
         // print(s"<green>Test <white>%var(test_name)<green> passed!");
         passed = 1;

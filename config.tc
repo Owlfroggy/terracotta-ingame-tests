@@ -8,6 +8,9 @@ function CONFIG() {
         "vec_constructor",
         "vec_component_access",
 
+        "loc_constructor",
+        "loc_coordinate_access",
+
         "item_constructor",
 
         "list_initialization",
