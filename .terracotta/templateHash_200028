@@ -1,5 +1,5 @@
 >functions
-1646598f812fc637ea8570ba02322751 CONFIG
+d6bf62ee130ca1651e1e8f98c6f7bead CONFIG
 e5a16bbf174a4c7e86533c581bc0d72f util_runchecker
 0e20dba5e1ef7d2dc5793513f80de90d run_tests
 3547d6be3e8cdc1853eb3cbbdd81ab5b fail_statement
@@ -34,7 +34,7 @@ e22547e94e757ed74011615fa4d200c1 test_dict_indexer_sob
 419ff7026c68496e7f059967578a01df test_dict_initialization
 880ec290395c3f28561db57b3130e6b5 test_dict_indexer_set
 fc0b628188d090a5b806169282d5aff4 test_str_literal
-abafe2759fa58385d178c435e6cfeba8 test_dispatcher
+63c2ccc9e5d58ad06fd0e7c3efe1c5cd test_dispatcher
 >playerEvents
 dc56077e774a7559b80c3155540439bf Join
 >entityEvents

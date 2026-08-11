@@ -5,6 +5,8 @@ function CONFIG() {
 
         "str_literal",
 
+        "vec_constructor",
+
         "item_constructor",
 
         "list_initialization",

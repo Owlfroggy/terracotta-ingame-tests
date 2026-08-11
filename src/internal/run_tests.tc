@@ -51,15 +51,9 @@ process test_dispatcher(passed: var[num]) {
         // taken care of by the statement call
     } else {
         if (statement_num == 0) {
-            print(
-                "Test %var(test_name) did not finish execution. Not a single statement ran, was this test configured incorrectly?",
-                style="Error"
-            );
+            print(s"<red>Test <white>%var(test_name)</white> did not finish execution. Not a single statement ran, was this test configured incorrectly?",);
         } else {
-            print(
-                "Test %var(test_name) did not finish execution. The last statement run was %var(statement_num) (%var(last_statement_name))",
-                style="Error"
-            );
+            print(s"<red>Test <white>%var(test_name)</white> did not finish execution. The last statement run was <white>%var(last_statement_name) <grey>(#%var(statement_num))",); 
         }
     }
 }
