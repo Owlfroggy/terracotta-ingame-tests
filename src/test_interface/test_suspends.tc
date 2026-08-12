@@ -1,0 +1,4 @@
+/** Call this at the top of a test's body to allow said test to use waits/suspending actions */
+function test_suspends() {
+    test_info_suspends = 1;
+}

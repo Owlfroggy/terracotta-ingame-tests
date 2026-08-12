@@ -1,4 +1,7 @@
 function CONFIG() {
+    /** The maximum amount of time suspending tests are allowed to take before they are considered failed. */
+    declare global MAX_TIME_TICKS = 40;
+
     declare global test_list: list[str] = [
         "num_literal",
         "num_expr_literal",
@@ -38,6 +41,8 @@ function CONFIG() {
         "cond_if_else",
         "cond_and",
         "cond_or",
-        "cond_not"
+        "cond_not",
+
+        "control_wait",
     ];
 }

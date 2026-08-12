@@ -1,0 +1,11 @@
+process test_control_wait {
+    test_suspends();
+
+    line t = game.ticksSinceStartup;
+    wait(0.05, unit="Seconds");
+    wait;
+    wait(2);
+    require_equal("Waited for four ticks", game.ticksSinceStartup-t, 4);
+    
+    pass_test();
+}

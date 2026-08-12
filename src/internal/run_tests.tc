@@ -4,16 +4,21 @@ function run_tests() {
 
     print("",style="Custom");
 
-    //=- test execution -=\\
-    for (local test_name of test_list) {
-        line passed: num;
-        start test_dispatcher(passed, localVariables="Copy");
+    line running_tests = {};
 
+    //=- test execution -=\\
+    line "passed_%var(test_name)": num;
+    for (local test_name of test_list) {
         total_tests += 1;
-        if (!passed) {
-            tests_failed.append(test_name);
-        }
+        running_tests[test_name] = 1;
+        start test_dispatcher(tests_failed, running_tests, localVariables="Copy");
     }
+
+    while (!var.isEmpty(running_tests)) {
+        wait;
+        allPlayers.sendActionBar(s"Waiting on: ",running_tests.getKeys().join(", "));
+    }
+    allPlayers.sendActionBar(s"<green>Finished!");
 
     //=- final result message -=\\
     if (var.isEmpty(tests_failed)) {
@@ -39,21 +44,30 @@ function run_tests() {
     print("",style="Custom");
 }
 
-process test_dispatcher(passed: var[num]) {
-    passed = 0;
-
+process test_dispatcher(tests_failed: var[list[str]], running_tests: var[dict]) {
     start "test_%var(test_name)"(localVariables="Share");
+    if (test_info_suspends) {
+        repeat (MAX_TIME_TICKS) {
+            wait;
+            if (exit_code) { break; }
+        }
+    }
+
+    running_tests.remove(test_name);
 
     if (exit_code == "passed") {
         // print(s"<green>Test <white>%var(test_name)<green> passed!");
-        passed = 1;
-    } else if (exit_code == "failed") {
-        // taken care of by the statement call
     } else {
-        if (statement_num == 0) {
-            print(s"<red>Test <white>%var(test_name)</white> did not finish execution. Not a single statement ran, was this test configured incorrectly?",);
+        tests_failed.append(test_name);
+        
+        if (exit_code == "failed") {
+            // taken care of by the statement call
         } else {
-            print(s"<red>Test <white>%var(test_name)</white> did not finish execution. The last statement run was <white>%var(last_statement_name) <grey>(#%var(statement_num))",); 
+            if (statement_num == 0) {
+                print(s"<red>Test <white>%var(test_name)</white> did not finish execution. Not a single statement ran, was this test configured incorrectly?",);
+            } else {
+                print(s"<red>Test <white>%var(test_name)</white> did not finish execution. The last statement run was <white>%var(last_statement_name) <grey>(#%var(statement_num))",); 
+            }
         }
-    }
+    } 
 }
