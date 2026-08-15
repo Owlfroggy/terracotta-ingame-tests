@@ -21,7 +21,7 @@ process test_bvar_main {
     bvar("bvar_main_alternate", "test", "alternate") = 10;
     require_equal("[constants only] alternate.test is properly set", bvar.getVariable("bvar_main_alternate", "test", "alternate")[1], 10);
     require_equal("[constants only] alternate.test is properly read", bvar("bvar_main_alternate", "test", "alternate"), 10);
-    
+
 
     // bucket line var
     line b = "bvar_main_data";
@@ -89,8 +89,9 @@ process test_bvar_main {
     bvar("bvar_main_data", "test") = 999;
     line r = _test_bvar_main_var_param(bvar("bvar_main_data", "test"));
     require_equal("bvar values are correctly detected as variables",r,bvar("bvar_main_data", "test"));
-    // TODO: make this work
-    // bvar("bvar_main_data", "test") as num += 2;
+    
+    bvar("bvar_main_data", "test") as num += 2;
+    require_equal("bvar correctly incremented when type is given",bvar("bvar_main_data", "test"),1001);
 
     // clear and unload bucket
     bvar.purge("bvar_main_data");

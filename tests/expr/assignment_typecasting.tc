@@ -1,0 +1,48 @@
+process test_expr_assignment_typecasting {
+    line anything: any = 5;
+
+    // TODO: also check errors
+
+    anything as num += 5;
+    require_equal("Standalone",anything,10);
+    
+    anything as str += "5";
+    require_equal("Standalone (string)",anything,"105");
+    
+
+
+    anything = {};
+    (anything as dict)["Yee haw"] = 5;
+    require_equal("Path base",anything,{"Yee haw": 5});
+
+    (anything as dict[num])["Yee haw"] += 5;
+    require_equal("Path base (subtype)",anything,{"Yee haw": 10});
+    
+    (anything as dict)["Yee haw"] as num += 10;
+    require_equal("Path base & path end",anything,{"Yee haw": 20});
+    
+    (anything as dict[any])["Yee haw"] as num += 10;
+    require_equal("Later casts override earlier",anything,{"Yee haw": 30});
+
+    line first_known = [{key: "WRONG!!"}];
+    (first_known[1] as dict)["key"] = "value";
+    require_equal("Middle of path", first_known, [{key: "value"}]);
+    
+    (first_known as list[dict])[1]["key"] as str += "!";
+    require_equal("Path base & path end (with inferred middle)", first_known, [{key: "value!"}]);
+    
+    line mostly_known: list[dict] = [{number: 15}];
+    mostly_known[1]["number"] as num += 5;
+    require_equal("Path end", mostly_known, [{number: 20}]);
+
+
+    line why: any = {key: [ {vector: vec(1,2,3)} ]};
+    ((((why as dict)["key"] as list)[1] as dict)["vector"] as vec).y *= 5;
+    require_equal("Terracotta 1 flashbacks", why, {key: [ {vector: vec(1,10,3)} ]});
+
+    anything = 10;
+    anything as any as par as num += 5;
+    require_equal("Latest typecast prevails",anything, 15);
+    
+    pass_test();
+}

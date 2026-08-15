@@ -11,15 +11,14 @@ process test_dict_indexer_set() {
         {new_key: "new value"}
     );
 
-    // // BUG HERE: TC ERROR
-    // d = {};
-    // d["subdict"] = {};
-    // (d["subdict"] as dict)["nested value"] = 5;
-    // require_equal(
-    //     "Nested key has value set to number",
-    //     d,
-    //     {subdict: {"nested value": 5}}
-    // );
+    d = {};
+    d["subdict"] = {};
+    (d["subdict"] as dict)["nested value"] as num += 5;
+    require_equal(
+        "Nested key has value set to number",
+        d,
+        {subdict: {"nested value": 5}}
+    );
 
     d = {};
     d["subdict"] = {yee: "haw"};
