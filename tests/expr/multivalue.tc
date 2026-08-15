@@ -1,0 +1,42 @@
+process test_expr_multivalue() {
+    // only supply two getters to make sure the third one is properly inserted automatically
+    line number: num, line string: str = test_expr_multivalue_3(3);
+    require_equal("First value is correct", number, 3);
+    require_equal("Second value value is correct", string, "three");
+    
+    line number2, line string2, line text2 = test_expr_multivalue_3(3);
+    require_equal("First value type inference is correct", test_expr_multivalue_requirenum(number2), number2);
+    require_equal("Second value type inference is correct", test_expr_multivalue_requirestr(string2), string2);
+    require_equal("Second value type inference is correct", test_expr_multivalue_requiretxt(text2), text2);
+
+    // TODO: test error for dynamic indexing
+    // TODO: test error for out-of-bounds indexing
+    require_equal("Indexing operation retrieves correct value (1)", test_expr_multivalue_3(3)[1], 3);
+    require_equal("Indexing operation retrieves correct value (2)", test_expr_multivalue_3(3)[2], "three");
+    require_equal("Indexing operation retrieves correct value (3)", test_expr_multivalue_3(3)[3], s"<i>three");
+    
+    // make sure the results are properly typed
+    line a = test_expr_multivalue_3(3)[1];
+    line b = test_expr_multivalue_3(3)[2];
+    line c = test_expr_multivalue_3(3)[3];
+    test_expr_multivalue_requirenum(a);
+    test_expr_multivalue_requirestr(b);
+    test_expr_multivalue_requiretxt(c);
+
+    require_equal("Indexing operation works with the known section of dynamic multivalues", [5,10,15,20].destructure()[2] + 0, 10);
+
+    pass_test();
+}
+
+function test_expr_multivalue_3(number_to_return: num): num, str, txt {
+    return number_to_return, "three", s"<i>three";
+}
+function test_expr_multivalue_requirenum(x: num): num {
+    return x;
+}
+function test_expr_multivalue_requirestr(x: str): str {
+    return x;
+}
+function test_expr_multivalue_requiretxt(x: txt): txt {
+    return x;
+}

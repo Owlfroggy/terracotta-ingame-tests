@@ -1,0 +1,112 @@
+/**
+ * All the bucket var statements are condensed into one test
+ * due to having to save/load the buckets
+ */
+line _;
+process test_bvar_main {
+    test_suspends();
+
+    // load bucket
+    bvar.load("bvar_main_data","data");
+    bvar.load("bvar_main_alternate","alternate");
+    line loaded = bvar.getLoaded("data").contains("bvar_main_data") && bvar.getLoaded("alternate").contains("bvar_main_alternate");
+    require_equal("Buckets are loaded", loaded, 1);
+
+
+    // constants only
+    bvar("bvar_main_data", "test") = 10;
+    require_equal("[constants only] data.test is properly set", bvar.getVariable("bvar_main_data", "test")[1], 10);
+    require_equal("[constants only] data.test is properly read", bvar("bvar_main_data", "test"), 10);
+    
+    bvar("bvar_main_alternate", "test", "alternate") = 10;
+    require_equal("[constants only] alternate.test is properly set", bvar.getVariable("bvar_main_alternate", "test", "alternate")[1], 10);
+    require_equal("[constants only] alternate.test is properly read", bvar("bvar_main_alternate", "test", "alternate"), 10);
+    
+
+    // bucket line var
+    line b = "bvar_main_data";
+    bvar(b, "test") = 20;
+    require_equal("[bucket line var] data.test is properly set", bvar.getVariable("bvar_main_data", "test")[1], 20);
+    require_equal("[bucket line var] data.test is properly read", bvar(b, "test"), 20);
+    
+    line b = "bvar_main_alternate";
+    bvar(b, "test", "alternate") = 20;
+    require_equal("[bucket line var] alternate.test is properly set", bvar.getVariable("bvar_main_alternate", "test", "alternate")[1], 20);
+    require_equal("[bucket line var] alternate.test is properly read", bvar(b, "test", "alternate"), 20);
+
+    // variable line var
+    line v = "test";
+    bvar("bvar_main_data", v) = 30;
+    require_equal("[variable line var] data.test is properly set", bvar.getVariable("bvar_main_data", "test")[1], 30);
+    require_equal("[variable line var] data.test is properly read", bvar("bvar_main_data", v), 30);
+    
+    bvar("bvar_main_alternate", v, "alternate") = 30;
+    require_equal("[variable line var] alternate.test is properly set", bvar.getVariable("bvar_main_alternate", "test", "alternate")[1], 30);
+    require_equal("[variable line var] alternate.test is properly read", bvar("bvar_main_alternate", v, "alternate"), 30);
+
+
+    line bl = "WRONG!";
+    line vl = "WRONG!";
+    // bucket local var
+    local bl = "bvar_main_data";
+    bvar(local bl, "test") = 50;
+    require_equal("[bucket local var] data.test is properly set", bvar.getVariable("bvar_main_data", "test")[1], 50);
+    require_equal("[bucket local var] data.test is properly read", bvar(local bl, "test"), 50);
+    
+    local bl = "bvar_main_alternate";
+    bvar(local bl, "test", "alternate") = 50;
+    require_equal("[bucket local var] alternate.test is properly set", bvar.getVariable("bvar_main_alternate", "test", "alternate")[1], 50);
+    require_equal("[bucket local var] alternate.test is properly read", bvar(local bl, "test", "alternate"), 50);
+
+    // variable local var
+    local vl = "test";
+    bvar("bvar_main_data", local vl) = 60;
+    require_equal("[variable local var] data.test is properly set", bvar.getVariable("bvar_main_data", "test")[1], 60);
+    require_equal("[variable local var] data.test is properly read", bvar("bvar_main_data", local vl), 60);
+    
+    bvar("bvar_main_alternate", local vl, "alternate") = 60;
+    require_equal("[variable local var] alternate.test is properly set", bvar.getVariable("bvar_main_alternate", "test", "alternate")[1], 60);
+    require_equal("[variable local var] alternate.test is properly read", bvar("bvar_main_alternate", local vl, "alternate"), 60);
+
+
+
+    // getter actions
+    bvar("bvar_main_data", "omg") = "omg";
+    bvar("bvar_main_data", "incredible") = "incredible";
+
+    line get_val, line get_result = bvar.getVariable("bvar_main_data","omg");
+    require_equal("bvar.getVariable value",get_val,"omg");
+    require_equal("bvar.getVariable result",get_result,"success");
+    
+    line gm_val, line gm_result = bvar.getVariables("data","bvar_main_data","omg","incredible");
+    require_equal("bvar.getVariable value",gm_val[1],"omg");
+    require_equal("bvar.getVariable value",gm_val[2],"incredible");
+    require_equal("bvar.getVariable value length",gm_val.len(),2);
+    require_equal("bvar.getVariable result",gm_result,"success");
+
+
+    // misc tests
+    bvar("bvar_main_data", "test") = 999;
+    line r = _test_bvar_main_var_param(bvar("bvar_main_data", "test"));
+    require_equal("bvar values are correctly detected as variables",r,bvar("bvar_main_data", "test"));
+    // TODO: make this work
+    // bvar("bvar_main_data", "test") as num += 2;
+
+    // clear and unload bucket
+    bvar.purge("bvar_main_data");
+    bvar.purge("bvar_main_alternate","alternate");
+    bvar.saveAndUnload("bvar_main_data");
+    bvar.saveAndUnload("bvar_main_alternate","alternate");
+    line unloaded = !(bvar.getLoaded("data").contains("bvar_main_data") || bvar.getLoaded("alternate").contains("bvar_main_alternate"));
+
+    require_equal("Buckets are unloaded", unloaded, 1);
+    
+    pass_test();
+}
+
+
+// TODO: fix signature of getters
+
+function _test_bvar_main_var_param(p: var): any {
+    return p;
+}

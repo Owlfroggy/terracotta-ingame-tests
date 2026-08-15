@@ -25,6 +25,9 @@ function CONFIG() {
         "dict_indexer_set",
         "dict_indexer_sob",
 
+        "bvar_main",
+
+        "expr_multivalue",
         "expr_num_plus_num",
         "expr_num_times_num",
         "expr_num_minus_num",
