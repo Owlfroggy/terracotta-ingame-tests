@@ -38,16 +38,15 @@ process test_expr_bitwise() {
         }
     }
 
-    // BUG HERE: ~ is unimplemented :sob:
-    // for (r of test_numbers) {
-    //     require_equal("~%var(r)",~r,num.bitwise(r,operator="~"));
-    // }
-    // for (r of test_numbers) {
-    //     require_equal("~~%var(r)",~~r,num.bitwise(num.bitwise(r,operator="~"),operator="~"));
-    // }
-    // for (r of test_numbers) {
-    //     require_equal("5 + ~~%var(r)",5 + ~~r,5 + num.bitwise(num.bitwise(r,operator="~"),operator="~"));
-    // }
+    for (r of test_numbers) {
+        require_equal("~%var(r)",~r,num.bitwise(r,operator="~"));
+    }
+    for (r of test_numbers) {
+        require_equal("~~%var(r)",~~r,num.bitwise(num.bitwise(r,operator="~"),operator="~"));
+    }
+    for (r of test_numbers) {
+        require_equal("5 + ~~%var(r)",5 + ~~r,5 + num.bitwise(num.bitwise(r,operator="~"),operator="~"));
+    }
     
     // 64bit precision
     
@@ -83,43 +82,42 @@ process test_expr_bitwise() {
         }
     }
 
-    // BUG HERE: ^~ is unimplemented :sob:
-    // for (r of test_numbers) {
-    //     require_equal("^~%var(r)",^~r,num.bitwise(r,operator="~",bitPrecision="64-bit"));
-    // }
-    // for (r of test_numbers) {
-    //     require_equal("^~^~%var(r)",^~^~r,num.bitwise(num.bitwise(r,operator="~",bitPrecision="64-bit"),operator="~",bitPrecision="64-bit"));
-    // }
-    // for (r of test_numbers) {
-    //     require_equal("5 + ^~^~%var(r)",5 + ^~^~r,5 + num.bitwise(num.bitwise(r,operator="~",bitPrecision="64-bit"),operator="~",bitPrecision="64-bit"));
-    // }
+    for (r of test_numbers) {
+        require_equal("^~%var(r)",^~r,num.bitwise(r,operator="~",bitPrecision="64-bit"));
+    }
+    for (r of test_numbers) {
+        require_equal("^~^~%var(r)",^~^~r,num.bitwise(num.bitwise(r,operator="~",bitPrecision="64-bit"),operator="~",bitPrecision="64-bit"));
+    }
+    for (r of test_numbers) {
+        require_equal("5 + ^~^~%var(r)",5 + ^~^~r,5 + num.bitwise(num.bitwise(r,operator="~",bitPrecision="64-bit"),operator="~",bitPrecision="64-bit"));
+    }
     
     
-    // // complex expressions
-    // line a = 170;
-    // line b = 15;
-    // line c = 5;
-    // line d = 2;
+    // complex expressions
+    line a = 170;
+    line b = 15;
+    line c = 5;
+    line d = 2;
     
-    // line test1: num = (
-    //     (~line a * (line c + line d))
-    //     | (line b << line d)    
-    // ) & (
-    //     (line c ** line d)      
-    //     - (line a % line b)     
-    // );
-    // require_equal("Complex test 1",line test1,20);
+    line test1: num = (
+        (~line a * (line c + line d))
+        | (line b << line d)    
+    ) & (
+        (line c ** line d)      
+        - (line a % line b)     
+    );
+    require_equal("Complex test 1",line test1,20);
     
-    // line p = -65536;
-    // line q = 15;
-    // r = 3;
-    // line s = 4;
+    line p = -65536;
+    line q = 15;
+    r = 3;
+    line s = 4;
     
-    // line test2 = (
-    //     (~(line p >> r) + (line q * line s))
-    //     ^ ((line q & r) << (5 + ~line s - ~r))
-    // ) >> 2;
-    // require_equal("Complex test 2",line test2,2050);
+    line test2 = (
+        (~(line p >> r) + (line q * line s))
+        ^ ((line q & r) << (5 + ~line s - ~r))
+    ) >> 2;
+    require_equal("Complex test 2",line test2,2050);
     
     call pass_test;
 }
