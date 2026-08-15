@@ -43,24 +43,23 @@ process test_dict_indexer_get() {
     );
     
     // testing with explicit line-scoped vars
-    // BUG HERE!
-    // require_equal(
-    //     "[EXPLICIT SCOPE] Value in nested dict matches",
-    //     line two_deep["nested dict"]["nested key"],
-    //     "yay"
-    // );
+    require_equal(
+        "[EXPLICIT SCOPE] Value in nested dict matches",
+        line two_deep["nested dict"]["nested key"],
+        "yay"
+    );
     
-    // require_equal(
-    //     "[EXPLICIT SCOPE] Value in nested list matches",
-    //     line two_deep["nested_list"][1],
-    //     5
-    // );
+    require_equal(
+        "[EXPLICIT SCOPE] Value in nested list matches",
+        line two_deep["nested_list"][1],
+        5
+    );
     
-    // require_equal(
-    //     "[EXPLICIT SCOPE] 1-deep is properly nested",
-    //     line two_deep["nested dict"]["one deep"],
-    //     line one_deep
-    // );
+    require_equal(
+        "[EXPLICIT SCOPE] 1-deep is properly nested",
+        line two_deep["nested dict"]["one deep"],
+        line one_deep
+    );
 
     // types
     line key: str;
