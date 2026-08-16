@@ -16,5 +16,21 @@ process test_vec_constructor() {
     require_equal("XYZ full precision is preserved", vec.getComponent(num.multiply(xyz, vec(1000)) as vec, comp="Z"), 3141.5);
     require_equal("Value full precision is preserved", vec.getComponent(num.multiply(value, vec(1000)) as vec, comp="Z"), 1000.5);
 
+
+    line xyz_all_high_prec = vec(0.0067,1.4141,3.1415);
+    require_equal("XYZ_all_prec full precision is preserved", (xyz_all_high_prec*1000).x, 6.7);
+    require_equal("XYZ_all_prec full precision is preserved", (xyz_all_high_prec*1000).y, 1414.1);
+    require_equal("XYZ_all_prec full precision is preserved", (xyz_all_high_prec*1000).z, 3141.5);
+    
+    line x = 15; line y = 30; line z = 45;
+    line xyz_all_dynamic = vec(x,y,z);
+    require_equal("XYZ_all_dynamic works", xyz_all_dynamic, vec(15, 30, 45));
+    
+    line xyz_mostly_dynamic = vec(x,y,3.1415);
+    require_equal("xyz_mostly_dynamic works", xyz_mostly_dynamic, vec(15, 30, 3.1415));
+    
+    line value_dynamic = vec(x);
+    require_equal("value_dynamic works", value_dynamic, vec(15, 15, 15));
+
     pass_test();
 }
