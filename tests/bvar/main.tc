@@ -93,6 +93,20 @@ process test_bvar_main {
     bvar("bvar_main_data", "test") as num += 2;
     require_equal("bvar correctly incremented when type is given",bvar("bvar_main_data", "test"),1001);
 
+    bvar("bvar_main_data", "test") = 5;
+    bvar("bvar_main_data", "test_string") = 'five';
+    require_equal("data num in pcode", n"%bvar(bvar_main_data, test)",5);
+    require_equal("data str in pcode", "%bvar(bvar_main_data, test_string)",'five');
+    bvar("bvar_main_alternate", "test", "alternate") = 10;
+    bvar("bvar_main_alternate", "test_string", "alternate") = 'ten';
+    require_equal("alternate num in pcode", n"%bvar(alternate, bvar_main_alternate, test)",10);
+    require_equal("alternate str in pcode", "%bvar(alternate, bvar_main_alternate, test_string)",'ten');
+    // nested %bvar
+    bvar("bvar_main_data", "test") = 19;
+    bvar("bvar_main_data", "key") = 'test';
+    require_equal("nested %bvars",n"%bvar(bvar_main_data, %bvar(bvar_main_data, key))", 19);
+    
+
     // clear and unload bucket
     bvar.purge("bvar_main_data");
     bvar.purge("bvar_main_alternate","alternate");
