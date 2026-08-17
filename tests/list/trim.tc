@@ -1,0 +1,50 @@
+process test_list_trim {
+    line array: [num, str, txt, par...] = [5, "10", s"15", par("Ash")];
+    
+    line test: [num] = array.trim(1,1);
+    require_equal("1,1", test, [5]);
+
+    line test: [txt] = list.trim(array, 3,3);
+    require_equal("3,3", test, [s"15"]);
+    
+    line test: [num, str, txt] = array.trim(1,3);
+    require_equal("1,3", test, [5, "10", s"15"]);
+    
+    line test: [num, str] = list.trim(array, 1,2);
+    require_equal("1,3", test, [5, "10"]);
+    
+    line test: [str, txt] = array.trim(2,3);
+    require_equal("2,3", test, ["10", s"15"]);
+    
+    line test: [num, str, txt, par...] = array.trim(1);
+    require_equal("1", test, [5, "10", s"15", par("Ash")]);
+    
+    line test: [str, txt, par...] = list.trim(array, 2);
+    require_equal("2", test, ["10", s"15", par("Ash")]);
+    
+    line test: [txt, par...] = array.trim(3);
+    require_equal("3", test, [s"15", par("Ash")]);
+    
+    line test: list[par] = list.trim(array, 4);
+    require_equal("4", test, [par("Ash")]);
+    
+    line test: list[par] = array.trim(4, 5);
+    require_equal("99", test, [par("Ash")]);
+
+    line start_index = 2; line end_index = 4;
+    line test: list[any] = array.trim(start_index, end_index);
+    require_equal("[var] 2,4", test, ["10", s"15", par("Ash")]);
+
+
+
+    line numbers: list[num] = [1, 2, 3, 4, 5];
+    line test: list[num] = numbers.trim(3);
+    require_equal("numbers 3", test, [3, 4, 5]);
+    
+    line test: list[num] = list.trim(numbers, 2, 4);
+    require_equal("numbers 2,4", test, [2, 3, 4]);
+
+    line inv_item_type_matches: list[item] = default.inventoryMenuItems.trim(1, 45);
+
+    pass_test();
+}

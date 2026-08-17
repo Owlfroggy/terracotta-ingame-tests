@@ -19,6 +19,7 @@ function CONFIG() {
         "list_initialization",
         "list_indexer_get",
         "list_indexer_set",
+        "list_trim",
 
         "dict_initialization",
         "dict_indexer_get",
