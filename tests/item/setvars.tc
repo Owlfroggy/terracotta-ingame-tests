@@ -1,0 +1,11 @@
+process test_item_setvars {
+    require_equal(
+        "Add item attribute and get item attribute both support new slots",
+        item("grass_block")
+            .addAttribute(5,attr="Armor",slot="Saddle")
+            .getAttribute(attr="Armor",slot="Saddle"),
+        5
+    );
+
+    pass_test();
+}

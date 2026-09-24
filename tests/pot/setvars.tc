@@ -1,0 +1,21 @@
+process test_pot_setvars {
+    require_equal(
+        "id",
+        pot("speed").setId("unluck").getId(),
+        "minecraft:unluck"
+    );
+
+    require_equal(
+        "amplifier",
+        pot("speed").setAmplifier(5).getAmplifier(),
+        5
+    );
+
+    require_equal(
+        "duration",
+        pot("speed").setDuration(67).getDuration(),
+        67
+    );
+
+    pass_test();
+}

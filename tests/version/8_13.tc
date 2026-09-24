@@ -1,0 +1,27 @@
+process test_version_8_13 {
+    pass_test();
+}
+
+
+// playerevent swapHands {
+//     default.setNumEnvOption(option="Fog start distance", -20);
+//     default.setNumEnvOption(option="Fog end distance", 20);
+//     default.setNumEnvOption(option="Sun angle",180);
+//     default.setColEnvOption(option="Sky color", "#ff0000");
+//     default.setColEnvOption(option="Fog color", "#ff00ff");
+//     default.setColEnvOption(option="Cloud color", "#000000", 0);
+//     default.setColEnvOption(option="Sky light color","#000000",0);
+//     default.setColEnvOption(option="Block light tint","#000000",0);
+//     default.setColEnvOption(option="Ambient light color","#000000",0);
+
+//     default.setToSpectatorMode();
+//     default.setSpectatorCollision(collision="Enable");
+//     default.teleport(loc(0,0,0).setAllCoordinates(5012.863, 50, 66013.396, -26.6, -95.7, type="World coordinate"));
+//     repeat {
+//         default.setAllowFlight(allow="Disable");
+//         default.setFlying(flying="Disable");
+//         // default.sendTitle(s"<#4040ff><shadow:#00000000>☐●<strikethrough>            </strikethrough>",s"<#4040ff><shadow:#00000000><i>where did it go??",20,0,0);
+//         default.sendTitle(s"",s"<#4040ff><shadow:#00000000>☐●<strikethrough>            </strikethrough><i>where did it go??</i>",20,0,0);
+//         wait;
+//     }
+// }

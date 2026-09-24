@@ -17,8 +17,13 @@ function CONFIG() {
         "item_constructor",
 
         "par_ids",
+        "par_setvars",
+
         "pot_ids",
+        "pot_setvars",
+        
         "snd_ids",
+        "snd_setvars",
 
         "list_initialization",
         "list_indexer_get",
@@ -53,5 +58,7 @@ function CONFIG() {
         "cond_not",
 
         "control_wait",
+
+        "item_setvars",
     ];
 }

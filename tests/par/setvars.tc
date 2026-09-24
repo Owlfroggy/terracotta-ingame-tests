@@ -1,0 +1,95 @@
+process test_par_setvars {
+    require_equal(
+        "id",
+        par("ash").setAmount(6).getAmount(),
+        6
+    );
+    
+    line p = par("ash").setSpread(6, 7);
+    require_equal(
+        "spread horiz",
+        [p.getSpread(axis="Horizontal"), p.getSpread(axis="Vertical")],
+        [6, 7]
+    );
+
+    require_equal(
+        "id",
+        par("ash").setId("block").getId(),
+        "minecraft:block"
+    );
+
+    line p = par("dust").setColor("#8000FF", 67);
+    require_equal(
+        "color",
+        p.getColor(),
+        "#8000FF"
+    );
+    require_equal(
+        "color variation",
+        p,
+        par("dust",color="#8000FF",colorVariation=67),
+    );
+
+    require_equal(
+        "duration",
+        par("trail").setDuration(9).getDuration(),
+        9
+    );
+
+    require_equal(
+        "fade color",
+        par("dust_color_transition").setFade("#8000FF").getFade(),
+        "#8000FF"
+    );
+
+    // Disabled due to DF bug
+    // require_equal(
+    //     "material",
+    //     par("item").setMaterial("redstone_torch").getMaterial(),
+    //     "redstone_torch"
+    // );
+
+    line p = par("end_rod").setMotion(vec(1,2,3), 67);
+    require_equal(
+        "motion",
+        p.getMotion(),
+        vec(1,2,3)
+    );
+    require_equal(
+        "motion variation",
+        p,
+        par("end_rod",motion=vec(1,2,3),motionVariation=67),
+    );
+
+    require_equal(
+        "opacity",
+        par("entity_effect").setOpacity(67).getOpacity(),
+        67
+    );
+
+    require_equal(
+        "power",
+        par("instant_effect").setPower(6.9).getPower(),
+        6.9
+    );
+
+    require_equal(
+        "roll",
+        par("sculk_charge").setRoll(6.9).getRoll(),
+        6.9
+    );
+
+    line p = par("dust").setSize(6.9,67);
+    require_equal(
+        "color",
+        p.getSize(),
+        6.9
+    );
+    require_equal(
+        "color variation",
+        p,
+        par("dust",size=6.9,sizeVariation=67),
+    );
+
+    pass_test();
+}

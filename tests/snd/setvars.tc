@@ -1,0 +1,44 @@
+process test_snd_setvars {
+    line s = snd("ambient.basalt_deltas.additions").setId("ambient.cave");
+    require_equal(
+        "id",
+        s.getId(),
+        "minecraft:ambient.cave"
+    );
+    require_equal(
+        "id (name)",
+        s.getId(returnType="Sound name"),
+        "cave ambience"
+    );
+    require_equal(
+        "id (custom key)",
+        snd("ambient.cave").setId("custom:dingus.kablingus").getId(),
+        "custom:dingus.kablingus"
+    );
+
+    require_equal(
+        "pitch (number)",
+        snd("ambient.cave").setPitch(1.5).getPitch(),
+        1.5
+    );
+    require_equal(
+        "pitch (note)",
+        snd("ambient.cave").setPitch("A2").getPitch(returnValue="Note (text)"),
+        "A2"
+    );
+
+    require_equal(
+        "volume",
+        snd("ambient.cave").setVolume(1.5).getVolume(),
+        1.5
+    );
+
+    require_equal(
+        "variant",
+        snd("ambient.cave").setVariant("cave10").getVariant(),
+        "cave10"
+    );
+
+
+    pass_test();
+}
