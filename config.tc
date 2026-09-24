@@ -16,6 +16,10 @@ function CONFIG() {
 
         "item_constructor",
 
+        "par_ids",
+        "pot_ids",
+        "snd_ids",
+
         "list_initialization",
         "list_indexer_get",
         "list_indexer_set",

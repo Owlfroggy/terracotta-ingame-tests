@@ -1,0 +1,28 @@
+process test_par_ids {
+    require_equal(
+        "Constructor supports legacy name & getType() uses legacy name",
+        par("Upward bubble column").getType(), "upward bubble column"
+    );
+    require_equal(
+        "Legacy setType() works",
+        par("ash").setType("upward Bubble column").getType(), "upward bubble column"
+    );
+
+    line name = "Upward bubble column";
+    require_equal(
+        "Constructor DOES NOT accept legacy names in variables",
+        par(name).getType(), "cloud"
+    );
+
+    require_equal(
+        "Constructor uses new id system",
+        par("minecraft:bubble_column_up").getType(), "upward bubble column"
+    );
+
+    require_equal(
+        "Constructor uses new id system",
+        par("bubble_column_up").getId(), "minecraft:bubble_column_up"
+    );
+
+    pass_test();
+}

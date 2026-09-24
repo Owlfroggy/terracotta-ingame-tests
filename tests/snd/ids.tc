@@ -1,0 +1,32 @@
+process test_snd_ids {
+    require_equal(
+        "Constructor supports legacy name & getType() uses legacy name",
+        snd("Sand Fall").getType(), "sand fall"
+    );
+    require_equal(
+        "Constructor supports variants when using legacy name",
+        snd("sand fall", 1, 1, "sand4").getVariant(), "sand4"
+    );
+    require_equal(
+        "Legacy setType() works",
+        snd("ambient.cave").setType("Sand break").getType(), "sand break"
+    );
+
+    line name = "Sand Fall";
+    require_equal(
+        "Constructor DOES NOT accept legacy names in variables",
+        snd(name).getType(), "pling"
+    );
+
+    require_equal(
+        "Constructor uses new id system",
+        snd("minecraft:block.note_block.bit").getType(), "bit"
+    );
+    
+    require_equal(
+        "Constructor uses new id system (checking with getId())",
+        snd("block.note_block.bit").getId(), "minecraft:block.note_block.bit"
+    );
+
+    pass_test();
+}

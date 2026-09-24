@@ -1,0 +1,33 @@
+process test_pot_ids {
+    require_equal(
+        "Constructor supports legacy name & getType() uses legacy name",
+        pot("Bad Luck").getType(), "bad luck"
+    );
+    require_equal(
+        "Legacy setType() works",
+        pot("Speed").setType("bad luck").getType(), "bad luck"
+    );
+
+    line name = "Bad luck";
+    require_equal(
+        "Constructor DOES NOT accept legacy names in variables",
+        pot(name).getType(), "speed"
+    );
+
+    require_equal(
+        "Constructor uses new id system",
+        pot("unluck").getType(), "bad luck"
+    );
+    
+    require_equal(
+        "Constructor uses new id system",
+        pot("minecraft:unluck").getType(), "bad luck"
+    );
+
+    require_equal(
+        "Constructor uses new id system (checking with getId())",
+        pot("unluck").getId(), "minecraft:unluck"
+    );
+    
+    pass_test();
+}
