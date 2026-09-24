@@ -1,0 +1,17 @@
+{
+  "compilationMode": "item",
+  "id": "test",
+  "items": {
+    "diamond": {
+      "data": "{components:{\"minecraft:custom_name\":{color:\"aqua\",italic:0b,text:\"Diamond\"}},count:1,id:\"minecraft:diamond\"}",
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA5UlEQVR4Xu2TMQrCMBhGewXBSRw8gCdxdfcQjt7C1c1JcPcIHkHQzdHF1cWhQuANfRDb0kob6QdvCCT/92jSLBsypGZG603+De9vPS403t9aKIjlkr8CPxPpTMDFi+etwP79CCAwO58C49Uy4Hm105lArJhCF7NmX2OR3goQir32FaUnUFbsAl/J5HgIcAWsK4v0VsCf2MUw3e4C/yNAGOhCQAwBitMV8CcHDzaIAkLpCBAOuNgFxvtqF5PeCMzv14AHx2AfjzNdAcIAHpMfpX9HRBoXk84FCAOr4vON44IyfH5ILB8LNzPcFjdgaQAAAABJRU5ErkJggg==",
+      "version": 4440
+    },
+    "emerald": {
+      "data": "{components:{\"minecraft:custom_name\":{color:\"green\",italic:0b,text:\"Emerald\"}},count:1,id:\"minecraft:emerald\"}",
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAvUlEQVR4Xu2UwQmDQBBFp4ukhUBSRGpIB7bhLdhCmggEK7GCYAUeBW9BYXb/QAY2i+iyYZkH7yCI/7GiRIaxlhvNP02OHtQmww+854G9js2Xh75i04VkC1DD7adjdQA9z6yEXMi5mWwBgeFYwH4h/xKAQTwQ6iAZf5ycuC4+4D69WBmsj04LKD4Aw6EA3Fd+gPyIcPT+MywgAPgQOWL8aDCohuWVbB4G2QNAJGS/Iw+RPQBgIGRy9KDWMFayAGzyM1bsceObAAAAAElFTkSuQmCC",
+      "version": 4440
+    }
+  },
+  "lastEditedWithExtensionVersion": "0.0.6"
+}

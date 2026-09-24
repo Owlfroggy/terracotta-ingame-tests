@@ -1,0 +1,83 @@
+process test_litem_constructor {
+    line lib = "test";
+    line itm = "diamond";
+    global itm = "emerald";
+
+    require_equal(
+        "const lib, const item",
+        test_litem_constructor_vd(
+            litem("test","diamond")
+        ), 1
+    );
+    require_equal(
+        "%var lib, const item",
+        test_litem_constructor_vd(
+            litem("%var(lib)","diamond")
+        ), 1
+    );
+    require_equal(
+        "const lib, %var item",
+        test_litem_constructor_vd(
+            litem("test","%var(itm)")
+        ), 1
+    );
+    require_equal(
+        "%var lib, %var item",
+        test_litem_constructor_vd(
+            litem("%var(lib)","%var(itm)")
+        ), 1
+    );
+
+    require_equal(
+        "line var lib, constant item",
+        test_litem_constructor_vd(
+            litem(lib,"diamond")
+        ), 1
+    );
+    require_equal(
+        "constant lib, line var item",
+        test_litem_constructor_vd(
+            litem("test",itm)
+        ), 1
+    );
+    require_equal(
+        "line var lib, line var item",
+        test_litem_constructor_vd(
+            litem(lib,itm)
+        ), 1
+    );
+
+    require_equal(
+        "scope shadowing is correctly handled",
+        test_litem_constructor_ve(
+            litem(lib,global itm)
+        ), 1
+    );
+
+    line t = "t";
+    line d = "d";
+    require_equal(
+        "mutli-pcode strings work as expected",
+        test_litem_constructor_vd(
+            litem("%var(t)es%var(t)","%var(d)iamon%var(d)")
+        ), 1
+    );
+
+    // TODO: test count parameter
+
+    pass_test();
+}
+
+
+function test_litem_constructor_vd(i: item): num {
+    return (
+        i.getMaterial(returnValue="Item ID (golden_apple)") == "diamond"
+        && i.getName() == s"<aqua>Diamond"
+    );
+}
+function test_litem_constructor_ve(i: item): num {
+    return (
+        i.getMaterial(returnValue="Item ID (golden_apple)") == "emerald"
+        && i.getName() == s"<green>Emerald"
+    );
+}

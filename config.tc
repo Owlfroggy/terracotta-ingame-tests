@@ -15,6 +15,7 @@ function CONFIG() {
         "loc_coordinate_access",
 
         "item_constructor",
+        "litem_constructor",
 
         "par_ids",
         "par_setvars",
