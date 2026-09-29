@@ -1,0 +1,242 @@
+process test_par_constructor {
+    line id: str;
+    
+    line id = "bubble";
+    require_equal(
+        "Constant id",
+        par("bubble").getId(),
+        "minecraft:bubble"
+    );
+    require_equal(
+        "Variable id",
+        par(id).getId(),
+        "minecraft:bubble"
+    );
+
+    require_equal(
+        "amount",
+        par("bubble",amount=5).getAmount(),
+        5
+    );
+    require_equal(
+        "amount + varid",
+        par(id,amount=5).getAmount(),
+        5
+    );
+    line amount = 5;
+    require_equal(
+        "amount + varquant",
+        par("bubble",amount=amount).getAmount(),
+        5
+    );
+    require_equal(
+        "amount + varid + varquant",
+        par(id,amount=amount).getAmount(),
+        5
+    );
+
+
+    line p = par("bubble", spreadHoriz=6, spreadVert=7);
+    require_equal(
+        "spread horiz",
+        [p.getSpread(axis="Horizontal"), p.getSpread(axis="Vertical")],
+        [6, 7]
+    );
+    line p = par(id, spreadHoriz=6, spreadVert=7);
+    require_equal(
+        "spread horiz + varid",
+        [p.getSpread(axis="Horizontal"), p.getSpread(axis="Vertical")],
+        [6, 7]
+    );
+    // TODO: variable quantity tests
+
+    line id = "dust";
+    require_equal(
+        "color",
+        par("dust",color="#8000FF").getColor(),
+        "#8000FF"
+    );
+    require_equal(
+        "color + varid",
+        par(id,color="#8000FF").getColor(),
+        "#8000FF"
+    );
+    line color = "#8000FF";
+    require_equal(
+        "color + varquant",
+        par("dust",color=color).getColor(),
+        "#8000FF"
+    );
+    require_equal(
+        "color + varid + varquant",
+        par(id,color=color).getColor(),
+        "#8000FF"
+    );
+
+    line id = "trail";
+    require_equal(
+        "duration",
+        par("trail",duration=67).getDuration(),
+        67
+    );
+    require_equal(
+        "duration + varid",
+        par(id,duration=67).getDuration(),
+        67
+    );
+    line duration = 67;
+    require_equal(
+        "duration + varquant",
+        par("trail",duration=duration).getDuration(),
+        67
+    );
+    require_equal(
+        "duration + varid + varquant",
+        par(id,duration=duration).getDuration(),
+        67
+    );
+
+    line id = "dust_color_transition";
+    require_equal(
+        "fade color",
+        par("dust_color_transition",fadeColor="#8000FF").getFade(),
+        "#8000FF"
+    );
+    require_equal(
+        "fade color + varid",
+        par(id,fadeColor="#8000FF").getFade(),
+        "#8000FF"
+    );
+    line fadeColor = "#8000FF";
+    require_equal(
+        "fade color + varquant",
+        par("dust_color_transition",fadeColor=fadeColor).getFade(),
+        "#8000FF"
+    );
+    require_equal(
+        "fade color + varid + varquant",
+        par(id,fadeColor=fadeColor).getFade(),
+        "#8000FF"
+    );
+
+    // put material test here when df fixes par.getMaterial()
+
+    line id = "end_rod";
+    require_equal(
+        "motion",
+        par("end_rod",motion=vec(1,2,3)).getMotion(),
+        vec(1,2,3)
+    );
+    require_equal(
+        "motion + varid",
+        par(id,motion=vec(1,2,3)).getMotion(),
+        vec(1,2,3)
+    );
+    line motion = vec(1,2,3);
+    require_equal(
+        "motion + varquant",
+        par("end_rod",motion=motion).getMotion(),
+        vec(1,2,3)
+    );
+    require_equal(
+        "motion + varid + varquant",
+        par(id,motion=motion).getMotion(),
+        vec(1,2,3)
+    );
+
+    line id = "entity_effect";
+    require_equal(
+        "opacity",
+        par("entity_effect",opacity=67).getOpacity(),
+        67
+    );
+    require_equal(
+        "opacity + varid",
+        par(id,opacity=67).getOpacity(),
+        67
+    );
+    line opacity = 67;
+    require_equal(
+        "opacity + varquant",
+        par("entity_effect",opacity=opacity).getOpacity(),
+        67
+    );
+    require_equal(
+        "opacity + varid + varquant",
+        par(id,opacity=opacity).getOpacity(),
+        67
+    );
+
+    line id = "instant_effect";
+    require_equal(
+        "power",
+        par("instant_effect",power=6.9).getPower(),
+        6.9
+    );
+    require_equal(
+        "power + varid",
+        par(id,power=6.9).getPower(),
+        6.9
+    );
+    line power = 6.9;
+    require_equal(
+        "power + varquant",
+        par("instant_effect",power=power).getPower(),
+        6.9
+    );
+    require_equal(
+        "power + varid + varquant",
+        par(id,power=power).getPower(),
+        6.9
+    );
+
+    line id = "sculk_charge";
+    require_equal(
+        "roll",
+        par("sculk_charge",roll=6.9).getRoll(),
+        6.9
+    );
+    require_equal(
+        "roll + varid",
+        par(id,roll=6.9).getRoll(),
+        6.9
+    );
+    line roll = 6.9;
+    require_equal(
+        "roll + varquant",
+        par("sculk_charge",roll=roll).getRoll(),
+        6.9
+    );
+    require_equal(
+        "roll + varid + varquant",
+        par(id,roll=roll).getRoll(),
+        6.9
+    );
+
+    line id = "dust";
+    require_equal(
+        "size",
+        par("dust",size=6.9).getSize(),
+        6.9
+    );
+    require_equal(
+        "size + varid",
+        par(id,size=6.9).getSize(),
+        6.9
+    );
+    line size = 6.9;
+    require_equal(
+        "size + varquant",
+        par("dust",size=size).getSize(),
+        6.9
+    );
+    require_equal(
+        "size + varid + varquant",
+        par(id,size=size).getSize(),
+        6.9
+    );
+
+    // TODO: write burstImpulse and waterBlocks tests when df supports them better
+
+    pass_test();
+}

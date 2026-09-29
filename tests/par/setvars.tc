@@ -1,6 +1,6 @@
 process test_par_setvars {
     require_equal(
-        "id",
+        "amount",
         par("ash").setAmount(6).getAmount(),
         6
     );
@@ -90,6 +90,8 @@ process test_par_setvars {
         p,
         par("dust",size=6.9,sizeVariation=67),
     );
+
+    // TODO: write burstImpulse and waterBlocks tests when df supports them better
 
     pass_test();
 }

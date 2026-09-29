@@ -19,6 +19,7 @@ function CONFIG() {
 
         "par_ids",
         "par_setvars",
+        "par_constructor",
 
         "pot_ids",
         "pot_setvars",
