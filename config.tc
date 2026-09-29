@@ -61,5 +61,7 @@ function CONFIG() {
         "control_wait",
 
         "item_setvars",
+        
+        "version_8_13",
     ];
 }

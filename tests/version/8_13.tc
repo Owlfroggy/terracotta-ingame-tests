@@ -1,4 +1,39 @@
 process test_version_8_13 {
+    require_equal(
+        "26.2 item ids exist",
+        item("sulfur").getMaterial(returnValue="Item ID (golden_apple)"),
+        "sulfur"
+    );
+
+    // particle tests are done this way because df's 
+    // par.getMaterial() action straight up doesnt work
+    require_equal(
+        "26.2 item ids work in particles",
+        par("item",material="sulfur_cube_bucket"),
+        par("item").setMaterial(item("sulfur_cube_bucket"))
+    );
+
+    require_equal(
+        "26.2 block ids work in particles",
+        par("block",material="sulfur_bricks"),
+        par("block").setMaterial(item("sulfur_bricks"))
+    );
+
+    line a = "item";
+    require_equal(
+        "26.2 item ids work in ambiguous particles",
+        par(a,material="sulfur_cube_bucket"),
+        par("item").setMaterial(item("sulfur_cube_bucket"))
+    );
+
+    line b = "block";
+    require_equal(
+        "26.2 block ids work in ambiguous particles",
+        par(b,material="sulfur_bricks"),
+        par("block").setMaterial(item("sulfur_bricks"))
+    );
+    
+
     pass_test();
 }
 
