@@ -20,12 +20,14 @@ function CONFIG() {
         "par_ids",
         "par_setvars",
         "par_constructor",
+        "par_motion_variation_only",
 
         "pot_ids",
         "pot_setvars",
         
         "snd_ids",
         "snd_setvars",
+        "snd_csnd",
 
         "list_initialization",
         "list_indexer_get",

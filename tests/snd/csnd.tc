@@ -1,0 +1,17 @@
+process test_snd_csnd {
+    line id = "custom:dingus.dongus";
+    require_equal('constant id',csnd("custom:dingus.dongus").getId(),"custom:dingus.dongus");
+    require_equal('variable id',csnd(id).getId(),"custom:dingus.dongus");
+    require_equal('%var id',csnd("%var(id)").getId(),"custom:dingus.dongus");
+    
+    line pitch = 1.5;
+    require_equal('pitch constant',csnd("custom:dingus.dongus",1.5).getPitch(),1.5);
+    require_equal('pitch note',csnd("custom:dingus.dongus","A1").getPitch(returnValue="Note (text)"),"A1");
+    require_equal('pitch var',csnd("custom:dingus.dongus",pitch).getPitch(),1.5);
+    
+    line volume = 1.5;
+    require_equal('volume constant',csnd("custom:dingus.dongus",1,1.5).getVolume(),1.5);
+    require_equal('volume var',csnd("custom:dingus.dongus",1,volume).getVolume(),1.5);
+    
+    pass_test();
+}

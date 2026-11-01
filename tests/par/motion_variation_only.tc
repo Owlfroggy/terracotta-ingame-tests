@@ -1,0 +1,24 @@
+/**
+ * Tests particles that have the `Motion Variation` field 
+ * but not the `Motion` field
+ */
+process test_par_motion_variation_only {
+    line val = 67;
+
+    
+    // witch particle
+    line correct = par('witch').setMotion(67);
+    require_equal("[witch] constant works",par('witch',motionVariation=67),correct);
+    require_equal("[witch] default value works",par('witch'),par('witch').setMotion(100));
+    require_equal("[witch] variable value works",par('witch',motionVariation=val),correct);
+    require_equal("[witch] numexpr variable value works",par('witch',motionVariation=n'%var(val)'),correct);
+    
+    // instant effect particle
+    line correct = par('instant_effect').setMotion(67);
+    require_equal("[instant_effect] constant works",par('instant_effect',motionVariation=67),correct);
+    require_equal("[instant_effect] default value works",par('instant_effect'),par('instant_effect').setMotion(100));
+    require_equal("[instant_effect] variable value works",par('instant_effect',motionVariation=val),correct);
+    require_equal("[instant_effect] numexpr variable value works",par('instant_effect',motionVariation=n'%var(val)'),correct);
+
+    pass_test();
+}

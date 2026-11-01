@@ -12,7 +12,7 @@
             "exportMode": "sendToMinecraft",
             "autoSwitchToDev": true,
             "autoSwitchToPlay": true,
-            "plotSize": 300
+            "plotSize": 100
         }
     ]
 }
